@@ -17,7 +17,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.gearvrf.balloons"
+    package="org.gearvrf.particles"
     android:versionCode="1"
     android:versionName="1.0">
 
@@ -36,7 +36,7 @@
         android:theme="@style/AppTheme" >
         <meta-data android:name="com.samsung.android.vr.application.mode" android:value="vr_only"/>
         <activity
-            android:name="org.gearvrf.balloons.org.gearvrf.particles.BalloonActivity"
+            android:name="org.gearvrf.particles.ParticleActivity"
             android:screenOrientation="landscape"
             android:launchMode="singleTask"
             android:label="@string/app_name" >

@@ -29,9 +29,9 @@ public class ParticleActivity extends GVRActivity {
         setMain(main);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        main.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        main.onTouchEvent(event);
+//        return super.onTouchEvent(event);
+//    }
 }

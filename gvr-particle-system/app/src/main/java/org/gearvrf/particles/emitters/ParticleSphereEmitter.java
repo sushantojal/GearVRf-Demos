@@ -20,6 +20,8 @@ import org.gearvrf.GVRSceneObject;
 import org.gearvrf.particles.Particle;
 import org.joml.Vector3f;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class ParticleSphereEmitter extends ParticleEmitter {
@@ -43,12 +45,48 @@ public class ParticleSphereEmitter extends ParticleEmitter {
         float emitTime = 1 / EmissionRate;
         mLastEmitTime += elapsed;
 
-        if (isEnabled() && !burst) {
+        if (isEnabled() && !enableBurst) {
             if (mLastEmitTime >= emitTime) {
                 emit();
                 mLastEmitTime = 0;
             }
         }
+
+        if ( enableBurst )
+        {
+            burst();
+        }
+    }
+
+    protected void burst()
+    {
+
+        if ( mActiveParticles.size() == 0 ) {
+            ArrayList<Particle> tempParticles = new ArrayList<Particle>();
+            while (mNumParticles < MaxActiveParticles) {
+                Particle particle = null;
+                GVRSceneObject sceneObj = null;
+                Vector3f pos = getNextPosition();
+                Vector3f direction = getNextDirection(pos);
+                float velocity = getNextVelocity();
+
+                sceneObj = mMakeParticle.create(getGVRContext());
+                sceneObj.setName(sceneObj.getName() + Integer.valueOf(mNumParticles).toString());
+                ++mNumParticles;
+                particle = new Particle(getGVRContext(), velocity, direction);
+                sceneObj.attachComponent(particle);
+                particle.setPosition(pos);
+                tempParticles.add(particle);
+                mBurstParticles.add(sceneObj);
+            }
+
+            for (int i = 0; i < mBurstParticles.size(); i++) {
+                mActiveParticles.add(tempParticles.get(i));
+                getOwnerObject().addChildObject(mBurstParticles.get(i));
+                mBurstParticles.get(i).setEnable(true);
+            }
+        }
+
     }
 
 

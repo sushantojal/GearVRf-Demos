@@ -24,7 +24,6 @@ import org.gearvrf.GVRSceneObject;
 import org.gearvrf.GVRMain;
 import org.gearvrf.GVRRenderData.GVRRenderingOrder;
 import org.gearvrf.GVRTexture;
-import org.gearvrf.balloons.R;
 import org.gearvrf.particles.emitters.ParticleEmitter;
 import org.gearvrf.particles.emitters.ParticlePlaneEmitter;
 import org.gearvrf.particles.emitters.ParticleSphereEmitter;
@@ -114,21 +113,19 @@ public class ParticleMain extends GVRMain {
         };
         mParticleSystem = new ParticleSphereEmitter(context, mScene, particleCreator,1);
 
-        mParticleSystem.setShapeParams(1);
-
         mParticleSystem.MaxDistance = 6.0f;
-        mParticleSystem.TotalParticles = 1000;
+        mParticleSystem.TotalParticles = 200;
         mParticleSystem.EmissionRate = 100;
         mParticleSystem.Velocity = new ParticleEmitter.Range<Float>(2.0f, 3.0f);
         mParticleSystem.EmitterArea = new ParticleEmitter.Range<Vector2f>(new Vector2f(-1.0f, 1.0f), new Vector2f(1.0f, 1.0f));
         //particleRoot.getTransform().setRotationByAxis(-90.0f, 1, 0, 0);
         mParticleSystem.fadeWithDistance = true;
+        mParticleSystem.enableBurst = true;
+        mParticleSystem.loopBurst = true;
         particleRoot.getTransform().setPosition(2, -6, -5.0f);
         particleRoot.attachComponent(mParticleSystem);
         //particleRoot.addChildObject(mParticleSystem.getOwnerObject());
-        //mScene.addSceneObject(particleRoot);
-
-
+        mScene.addSceneObject(particleRoot);
 
 
         GVRSceneObject particleRoot2 = new GVRSceneObject(context);
@@ -142,9 +139,7 @@ public class ParticleMain extends GVRMain {
         };
         mParticleSystem2 = new ParticlePlaneEmitter(context, mScene, particleCreator2,1,1);
 
-        mParticleSystem2.setShapeParams(1);
-
-        mParticleSystem2.MaxDistance = 6.0f;
+        mParticleSystem2.MaxDistance = 10.0f;
         mParticleSystem2.TotalParticles = 1000;
         mParticleSystem2.EmissionRate = 100;
         mParticleSystem2.Velocity = new ParticleEmitter.Range<Float>(2.0f, 3.0f);
@@ -155,21 +150,16 @@ public class ParticleMain extends GVRMain {
         particleRoot2.attachComponent(mParticleSystem2);
         //particleRoot.addChildObject(mParticleSystem.getOwnerObject());
         particleRoot2.getTransform().setRotationByAxis(45, 0,0,1);
-        mScene.addSceneObject(particleRoot2);
+        //mScene.addSceneObject(particleRoot2);
 
 
 
-
-
-
-
-
-        /*
-         * Respond to picking events
-         */
-        mPicker = new GVRPicker(context, mScene);
-        mPickHandler = new PickHandler();
-        mScene.getEventReceiver().addListener(mPickHandler);
+//        /*
+//         * Respond to picking events
+//         */
+//        mPicker = new GVRPicker(context, mScene);
+//        mPickHandler = new PickHandler();
+//        mScene.getEventReceiver().addListener(mPickHandler);
     }
 
     GVRSceneObject makeParticleQuad(GVRContext context)
@@ -188,28 +178,28 @@ public class ParticleMain extends GVRMain {
         FPSCounter.tick();
     }
 
-    public void onTouchEvent(MotionEvent event)
-    {
-        switch (event.getAction() & MotionEvent.ACTION_MASK)
-        {
-            case MotionEvent.ACTION_DOWN:
-                if (mPickHandler.PickedObject != null)
-                {
-                    onHit(mPickHandler.PickedObject);
-                }
-                break;
+//    public void onTouchEvent(MotionEvent event)
+//    {
+//        switch (event.getAction() & MotionEvent.ACTION_MASK)
+//        {
+//            case MotionEvent.ACTION_DOWN:
+//                if (mPickHandler.PickedObject != null)
+//                {
+//                    onHit(mPickHandler.PickedObject);
+//                }
+//                break;
+//
+//            default:
+//                break;
+//        }
+//    }
 
-            default:
-                break;
-        }
-    }
-
-    private void onHit(GVRSceneObject sceneObj)
-    {
-        Particle particle = (Particle) sceneObj.getComponent(Particle.getComponentType());
-        if (particle != null)
-        {
-            mParticleSystem.stop(particle);
-        }
-    }
+//    private void onHit(GVRSceneObject sceneObj)
+//    {
+//        Particle particle = (Particle) sceneObj.getComponent(Particle.getComponentType());
+//        if (particle != null)
+//        {
+//            mParticleSystem.stop(particle);
+//        }
+//    }
 }

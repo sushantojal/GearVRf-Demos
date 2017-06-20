@@ -46,16 +46,39 @@ public class ParticlePlaneEmitter extends ParticleEmitter {
         float emitTime = 1 / EmissionRate;
         mLastEmitTime += elapsed;
 
-        if (isEnabled()) {
+        if (isEnabled() && !enableBurst) {
             if (mLastEmitTime >= emitTime) {
-//                if (burst)
-//                {
-//                    createBurstParticles();
-//                }
                 emit();
                 mLastEmitTime = 0;
             }
         }
+
+        if ( enableBurst )
+        {
+            burst();
+        }
+    }
+
+    protected void burst()
+    {
+        Particle particle = null;
+        GVRSceneObject sceneObj = null;
+        Vector3f pos = getNextPosition();
+        Vector3f direction = getNextDirection(pos);
+        float velocity = getNextVelocity();
+
+        while (mNumParticles < MaxActiveParticles )
+        {
+            sceneObj = mMakeParticle.create(getGVRContext());
+            sceneObj.setName(sceneObj.getName() + Integer.valueOf(mNumParticles).toString());
+            ++mNumParticles;
+            particle = new Particle(getGVRContext(), velocity, direction);
+            sceneObj.attachComponent(particle);
+            particle.setPosition(pos);
+            sceneObj.setEnable(true);
+        }
+
+        getOwnerObject().addChildObject(sceneObj);
     }
 
     protected void emit() {

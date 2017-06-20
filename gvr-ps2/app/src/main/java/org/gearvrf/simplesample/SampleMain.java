@@ -3,6 +3,8 @@ package org.gearvrf.simplesample;
 import org.gearvrf.GVRAndroidResource;
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRMain;
+import org.gearvrf.GVRMaterial;
+import org.gearvrf.GVRMesh;
 import org.gearvrf.GVRScene;
 import org.gearvrf.GVRSceneObject;
 import org.gearvrf.GVRTexture;
@@ -16,19 +18,26 @@ public class SampleMain extends GVRMain{
     @Override
     public void onInit(GVRContext gvrContext) {
         GVRScene scene = gvrContext.getMainScene();
-        scene.setBackgroundColor(1, 1, 1, 1);
+        //scene.setBackgroundColor(1, 1, 1, 1);
 
         GVRTexture texture = gvrContext.getAssetLoader().loadTexture(new GVRAndroidResource(gvrContext, R.drawable.gearvr_logo));
-
-        // create a scene object (this constructor creates a rectangular scene
-        // object that uses the standard texture shader
         GVRSceneObject sceneObject = new GVRSceneObject(gvrContext, 4.0f, 2.0f, texture);
 
-        // set the scene object position
+        GVRMesh partMesh = new GVRMesh(gvrContext);
+        partMesh.setVertices(new float[]{-2.0f, 1.0f, -1.0f, 0,1.0f, -1.0f, 0,0,0, -2.0f, 0.0f, -1.0f});
+
+        partMesh.setNormals(new float[]{0,0,1, 0,0,1, 0,0,1, 0,0,1});
+
+        sceneObject.getRenderData().setMesh(partMesh);
+
+        sceneObject.getRenderData().setShaderTemplate(ColorShader.class);
+
         sceneObject.getTransform().setPosition(0.0f, 0.0f, -3.0f);
 
-        // add the scene object to the scene graph
+
+
         scene.addSceneObject(sceneObject);
+
     }
 
 }

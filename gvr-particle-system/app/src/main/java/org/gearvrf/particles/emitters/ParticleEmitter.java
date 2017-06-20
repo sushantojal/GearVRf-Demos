@@ -96,7 +96,8 @@ public class ParticleEmitter extends GVRBehavior
     /*
     burst mode
      */
-    public boolean burst = false;
+    public boolean enableBurst = false;
+    public boolean loopBurst = false;
 
     protected ArrayList<Particle> mFreeParticles;
     protected ArrayList<Particle> mActiveParticles;
@@ -192,24 +193,18 @@ public class ParticleEmitter extends GVRBehavior
 
     protected void step(float elapsed)
     {
-        synchronized (mActiveParticles)
-        {
-            for (Iterator<Particle> iter = mActiveParticles.iterator(); iter.hasNext(); )
-            {
+        synchronized (mActiveParticles) {
+            for (Iterator<Particle> iter = mActiveParticles.iterator(); iter.hasNext(); ) {
                 Particle particle = iter.next();
                 particle.move(elapsed);
                 GVRSceneObject owner = particle.getOwnerObject();
-                if (particle.Distance > MaxDistance)
-                {
+                if (particle.Distance > MaxDistance) {
                     iter.remove();
                     mFreeParticles.add(particle);
                     owner.setEnable(false);
-                }
-                else
-                {
+                } else {
                     //fade out the particle as it gets further
-                    if (fadeWithDistance)
-                    {
+                    if (fadeWithDistance) {
                         float alpha = 1 - particle.Distance / MaxDistance;
                         owner.getRenderData().getMaterial().setOpacity(alpha);
                     }
@@ -217,7 +212,13 @@ public class ParticleEmitter extends GVRBehavior
             }
         }
 
+
     }
+
+    protected void emit(){}
+
+    protected void burst(){}
+
 
 //    private Vector3f getNextDirection(Vector3f pos)
 //    {
