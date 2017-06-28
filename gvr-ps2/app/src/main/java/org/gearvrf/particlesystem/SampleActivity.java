@@ -13,25 +13,18 @@
  * limitations under the License.
  */
 
-package org.gearvrf.simplesample;
+package org.gearvrf.particlesystem;
 
 import android.os.Bundle;
 
 import org.gearvrf.GVRActivity;
-import org.gearvrf.GVRAndroidResource;
-import org.gearvrf.GVRCameraRig;
-import org.gearvrf.GVRContext;
-import org.gearvrf.GVRMain;
-import org.gearvrf.GVRScene;
-import org.gearvrf.GVRSceneObject;
-import org.gearvrf.GVRTexture;
 
 public class SampleActivity extends GVRActivity {
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setMain(new SampleMain());
+        setMain(new SampleMain(), "gvr.xml");
     }
 
 

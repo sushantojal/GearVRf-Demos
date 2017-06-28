@@ -14,31 +14,26 @@
  */
 
 
-package org.gearvrf.simplesample;
+package org.gearvrf.particlesystem;
 
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRShaderTemplate;
+import org.gearvrf.particlesystem.R;
+import org.gearvrf.utility.TextFile;
 
 public class ColorShader extends GVRShaderTemplate
 {
-    private static final String VERTEX_SHADER = "in vec4 a_position;\n"
-            + "uniform mat4 u_mvp;\n"
-            + "void main() {\n"
-            + "  gl_Position = u_mvp * a_position;\n"
-            + "}\n";
+    private static String fragTemplate;
+    private static String vtxTemplate;
 
-    private static final String FRAGMENT_SHADER = "precision mediump float;\n"
-            + "uniform vec4 u_color;\n"
-            + "out vec4 fragColor;\n"
-            + "void main() {\n"
-            + "  fragColor = vec4(0,1,0,1);\n"
-            + "}\n";
-
-    public ColorShader(GVRContext gvrContext)
+    public  ColorShader(GVRContext context)
     {
-        super("float4 u_color", 300);
-        setSegment("FragmentTemplate", FRAGMENT_SHADER);
-        setSegment("VertexTemplate", VERTEX_SHADER);
+        super("float4 u_color; float u_opacity; float u_velocity; float u_time");
+        fragTemplate = TextFile.readTextFile(context.getContext(), R.raw.particle_frag);
+        vtxTemplate = TextFile.readTextFile(context.getContext(), R.raw.particle_vert);
+
+        setSegment("VertexTemplate", vtxTemplate);
+        setSegment("FragmentTemplate", fragTemplate);
     }
 
 }
