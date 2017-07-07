@@ -1,17 +1,26 @@
 precision mediump float;
 uniform vec4 u_color;
-uniform float u_opacity;
+uniform float u_particle_age;
 uniform sampler2D tex0;
+uniform float u_fade;
 
-varying float is_deltaT_negative;
+varying float deltaTime;
 
 void main() {
 
-    if ( is_deltaT_negative == 1.0f ) {
+    if ( deltaTime < 0.0f || deltaTime > u_particle_age) {
         discard;
     }
+
+    float opacity = 1.0f;
+
+    if ( u_fade == 1.0f )
+    {
+        opacity = 1.0f - (deltaTime / u_particle_age);
+    }
+
     vec4 color = texture2D(tex0, gl_PointCoord);
-    gl_FragColor = vec4(color.r * u_color.r * u_opacity, color.g * u_color.g * u_opacity ,
-     color.b * u_color.b * u_opacity, color.a * u_opacity);
+    gl_FragColor = vec4(color.r * u_color.r * opacity * u_color.a, color.g * u_color.g * opacity * u_color.a,
+    color.b * u_color.b * opacity * u_color.a, u_color.a * (color.a * opacity));
 
 }

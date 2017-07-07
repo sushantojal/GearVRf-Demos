@@ -3,24 +3,31 @@ attribute vec4 a_position;
 attribute vec3 a_normal;
 attribute vec2 a_texcoord;
 uniform mat4 u_mvp;
-uniform float u_velocity;
+uniform vec3 u_acceleration;
 uniform float u_time;
+uniform float u_particle_size;
+uniform float u_size_change_rate;
 
-varying float is_deltaT_negative;
+varying float deltaTime;
 
 void main() {
 
-    float deltaTime = u_time - a_texcoord.x;
+    deltaTime = u_time - a_texcoord.x;
 
-    if ( deltaTime < 0.0f ) {
-        is_deltaT_negative = 1.0f;
-    }
-    else {
-        is_deltaT_negative = 0.0f;
-    }
+    vec4 pos = a_position + vec4( (a_normal.x*deltaTime),
+                                  (a_normal.y*deltaTime),
+                                  (a_normal.z*deltaTime), 0) +
+                         vec4( (0.5f * u_acceleration.x * deltaTime * deltaTime),
+                               (0.5f * u_acceleration.y * deltaTime * deltaTime),
+                               (0.5f * u_acceleration.z * deltaTime * deltaTime), 0);
 
-    vec4 pos = a_position + vec4(0, (a_normal.y*deltaTime), -3.0f, 0);
-    gl_PointSize = 50.0f;
-	gl_Position = u_mvp * pos;
+
+    gl_Position = u_mvp * pos;
+
+    gl_PointSize = (u_particle_size + u_size_change_rate * deltaTime);
+
+    if ( gl_PointSize < 1.0f )
+        gl_PointSize = 1.0f;
+
 }
 

@@ -16,16 +16,38 @@
 package org.gearvrf.particlesystem;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 
 import org.gearvrf.GVRActivity;
 
 public class SampleActivity extends GVRActivity {
 
+    private SampleMain mMain;
+    private long lastDownTime = 0;
+
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        setMain(new SampleMain(), "gvr.xml");
+        mMain = new SampleMain();
+        setMain(mMain);
     }
 
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            lastDownTime = event.getDownTime();
+        }
+
+        if (event.getActionMasked() == MotionEvent.ACTION_UP) {
+            // check if it was a quick tap
+            if (event.getEventTime() - lastDownTime < 200) {
+                // pass it as a tap to the Main
+                mMain.onTap();
+            }
+        }
+
+        return true;
+    }
 
 }

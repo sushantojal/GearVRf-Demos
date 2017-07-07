@@ -28,7 +28,8 @@ public class ColorShader extends GVRShaderTemplate
 
     public  ColorShader(GVRContext context)
     {
-        super("float4 u_color; float u_opacity; float u_velocity; float u_time");
+        super("float4 u_color; float u_particle_age; float3 u_acceleration; float u_size_change_rate; " +
+                "float u_time, float u_particle_size; float u_fade");
         fragTemplate = TextFile.readTextFile(context.getContext(), R.raw.particle_frag);
         vtxTemplate = TextFile.readTextFile(context.getContext(), R.raw.particle_vert);
 
