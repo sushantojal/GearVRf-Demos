@@ -20,6 +20,8 @@ import android.view.MotionEvent;
 
 import org.gearvrf.GVRActivity;
 
+import java.io.IOException;
+
 public class SampleActivity extends GVRActivity {
 
     private SampleMain mMain;
@@ -29,7 +31,7 @@ public class SampleActivity extends GVRActivity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         mMain = new SampleMain();
-        setMain(mMain);
+        setMain(mMain, "gvr.xml");
     }
 
 
@@ -43,7 +45,11 @@ public class SampleActivity extends GVRActivity {
             // check if it was a quick tap
             if (event.getEventTime() - lastDownTime < 200) {
                 // pass it as a tap to the Main
-                mMain.onTap();
+                try {
+                    mMain.onTap();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
