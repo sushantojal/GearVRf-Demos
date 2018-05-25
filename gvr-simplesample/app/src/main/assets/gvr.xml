@@ -29,7 +29,7 @@
         framebufferPixelsWide="DEFAULT"
         showLoadingIcon="true"
         useProtectedFramebuffer="false"
-        useSrgbFramebuffer="false" >
+        useSrgbFramebuffer="true" >
 
         <mono-mode-parms
             monoFullScreen="false"
@@ -47,7 +47,7 @@
             colorFormat="COLOR_8888"
             depthFormat="DEPTH_24"
             fov-y="DEFAULT"
-            multiSamples="2"
+            multiSamples="4"
             resolutionWidth="DEFAULT"
             resolutionHeight="DEFAULT"
             resolveDepth="false" />
