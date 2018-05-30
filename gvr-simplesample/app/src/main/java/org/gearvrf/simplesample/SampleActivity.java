@@ -22,12 +22,14 @@ import android.os.Bundle;
 
 import org.gearvrf.GVRActivity;
 import org.gearvrf.GVRAndroidResource;
+import org.gearvrf.GVRAssetLoader;
 import org.gearvrf.GVRBitmapImage;
 import org.gearvrf.GVRCameraRig;
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRCubemapImage;
 import org.gearvrf.GVRMain;
 import org.gearvrf.GVRMaterial;
+import org.gearvrf.GVRMesh;
 import org.gearvrf.GVRPointLight;
 import org.gearvrf.GVRRenderPass;
 import org.gearvrf.GVRScene;
@@ -120,6 +122,10 @@ public class SampleActivity extends GVRActivity {
             //scene.addSceneObject(light2);
 
         }
+
+
+
+
     }
 
 
@@ -140,15 +146,12 @@ public class SampleActivity extends GVRActivity {
     {
         GVRSceneObject lightNode = new GVRSceneObject(context);
         GVRPointLight light = new GVRPointLight(context);
-        Quaternionf q = new Quaternionf();
 
         lightNode.attachLight(light);
         lightNode.getTransform().setPosition(0, 0.5f, 0);
         light.setAmbientIntensity(0.4f * r, 0.4f * g, 0.4f * b, 1);
         light.setDiffuseIntensity(r, g, b, 1);
         light.setSpecularIntensity(r, g, b, 1);
-//        light.setInnerConeAngle(10);
-//        light.setOuterConeAngle(20);
         return lightNode;
     }
 }
