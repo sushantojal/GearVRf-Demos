@@ -22,9 +22,13 @@ import org.gearvrf.GVRAndroidResource;
 import org.gearvrf.GVRCameraRig;
 import org.gearvrf.GVRContext;
 import org.gearvrf.GVRMain;
+import org.gearvrf.GVRPointLight;
 import org.gearvrf.GVRScene;
 import org.gearvrf.GVRSceneObject;
+import org.gearvrf.GVRSpotLight;
 import org.gearvrf.GVRTexture;
+
+import java.io.IOException;
 
 public class SampleActivity extends GVRActivity {
 
@@ -38,19 +42,49 @@ public class SampleActivity extends GVRActivity {
         @Override
         public void onInit(GVRContext gvrContext) {
             GVRScene scene = gvrContext.getMainScene();
-            scene.setBackgroundColor(1, 1, 1, 1);
+            //scene.setBackgroundColor(1, 1, 1, 1);
 
-            GVRTexture texture = gvrContext.getAssetLoader().loadTexture(new GVRAndroidResource(gvrContext, R.drawable.gearvr_logo));
+//            GVRTexture texture = gvrContext.getAssetLoader().loadTexture(new GVRAndroidResource(gvrContext, R.drawable.gearvr_logo));
+//
+//            // create a scene object (this constructor creates a rectangular scene
+//            // object that uses the standard texture shader
+//            GVRSceneObject sceneObject = new GVRSceneObject(gvrContext, 4.0f, 2.0f, texture);
+//
+//            // set the scene object position
+//            sceneObject.getTransform().setPosition(0.0f, 0.0f, -3.0f);
+//
+//            // add the scene object to the scene graph
+//            scene.addSceneObject(sceneObject);'
 
-            // create a scene object (this constructor creates a rectangular scene
-            // object that uses the standard texture shader
-            GVRSceneObject sceneObject = new GVRSceneObject(gvrContext, 4.0f, 2.0f, texture);
+            GVRSceneObject root = new GVRSceneObject(gvrContext);
 
-            // set the scene object position
-            sceneObject.getTransform().setPosition(0.0f, 0.0f, -3.0f);
 
-            // add the scene object to the scene graph
-            scene.addSceneObject(sceneObject);
+            //add model
+            GVRSceneObject model = null;
+
+            String filepath = "busterDrone/busterDrone.gltf";
+            try
+            {
+                model = gvrContext.getAssetLoader().loadModel(filepath);
+            }
+            catch (IOException ex) {
+            }
+            model.getTransform().setPosition(0,0.5f,-1);
+            root.addChildObject(model);
+
+
+            //add light
+            GVRSceneObject lightObj = new GVRSceneObject(gvrContext);
+            GVRSpotLight spotLight = new GVRSpotLight(gvrContext);
+            spotLight.setDiffuseIntensity(1, 1, 1, 1.0f);
+            spotLight.setSpecularIntensity(0.6f, 0.6f, 0.6f, 1.0f);
+            lightObj.attachComponent(spotLight);
+            lightObj.getTransform().setPosition(0.0f, 0.5f, 0);
+            root.addChildObject(lightObj);
+
+
+            scene.addSceneObject(root);
+
         }
     }
 }
