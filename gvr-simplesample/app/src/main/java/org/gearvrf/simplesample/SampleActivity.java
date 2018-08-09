@@ -21,6 +21,7 @@ import org.gearvrf.GVRActivity;
 import org.gearvrf.GVRAndroidResource;
 import org.gearvrf.GVRCameraRig;
 import org.gearvrf.GVRContext;
+import org.gearvrf.GVRImportSettings;
 import org.gearvrf.GVRMain;
 import org.gearvrf.GVRPointLight;
 import org.gearvrf.GVRScene;
@@ -29,6 +30,7 @@ import org.gearvrf.GVRSpotLight;
 import org.gearvrf.GVRTexture;
 
 import java.io.IOException;
+import java.util.EnumSet;
 
 public class SampleActivity extends GVRActivity {
 
@@ -61,16 +63,21 @@ public class SampleActivity extends GVRActivity {
 
             //add model
             GVRSceneObject model = null;
+            EnumSet<GVRImportSettings> settings = GVRImportSettings.getRecommendedSettingsWith(EnumSet.of(GVRImportSettings.START_ANIMATIONS));
 
-            String filepath = "busterDrone/busterDrone.gltf";
+
+
+//            String filepath = "busterDrone/busterDrone.gltf";
+//            String filepath = "AnimatedCube/glTF/AnimatedCube.gltf";
+            String filepath = "BoxAnimated/glTF/BoxAnimated.gltf";
             try
             {
-                model = gvrContext.getAssetLoader().loadModel(filepath);
+                model = gvrContext.getAssetLoader().loadModel(filepath, settings, false, scene);
             }
             catch (IOException ex) {
             }
-            model.getTransform().setPosition(0,0.5f,-1);
-            root.addChildObject(model);
+            model.getTransform().setPosition(0,-1f,-2);
+            //root.addChildObject(model);
 
 
             //add light
