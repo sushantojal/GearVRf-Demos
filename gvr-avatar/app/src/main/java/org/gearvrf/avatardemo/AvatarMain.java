@@ -1,5 +1,7 @@
 package org.gearvrf.avatardemo;
 
+import android.view.MotionEvent;
+
 import java.io.IOException;
 import java.util.EnumSet;
 import java.util.List;
@@ -13,18 +15,12 @@ import org.gearvrf.GVRScene;
 import org.gearvrf.GVRMain;
 import org.gearvrf.GVRTransform;
 import org.gearvrf.animation.GVRAvatar;
-import org.gearvrf.animation.keyframe.TRSImporter;
 import org.gearvrf.animation.GVRAnimator;
 import org.gearvrf.GVRSceneObject;
-import org.gearvrf.animation.GVRPose;
-import org.gearvrf.animation.GVRPoseMapper;
 import org.gearvrf.animation.GVRRepeatMode;
 import org.gearvrf.animation.GVRSkeleton;
-import org.gearvrf.animation.keyframe.GVRSkeletonAnimation;
-import org.joml.Vector3f;
+import org.gearvrf.utility.Log;
 
-import android.util.Log;
-import android.view.MotionEvent;
 
 public class AvatarMain extends GVRMain
 {
@@ -218,15 +214,13 @@ public class AvatarMain extends GVRMain
         gvrContext.getInputManager().selectController();
     }
 
-
     private void loadAnimation(String animPath) throws IOException
     {
         mAvatar.loadAnimation(new GVRAndroidResource(mContext, animPath));
     }
 
     @Override
-    public void onStep() {
-    }
+    public void onStep() { }
 
     public void onSingleTapUp(MotionEvent event)
     {
@@ -253,4 +247,5 @@ public class AvatarMain extends GVRMain
             }
         }
     }
+
 }
