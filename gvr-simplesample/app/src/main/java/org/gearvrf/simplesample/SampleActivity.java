@@ -69,14 +69,19 @@ public class SampleActivity extends GVRActivity {
 
 //            String filepath = "busterDrone/busterDrone.gltf";
 //            String filepath = "AnimatedCube/glTF/AnimatedCube.gltf";
-            String filepath = "BoxAnimated/glTF/BoxAnimated.gltf";
+//            String filepath = "BoxAnimated/glTF/BoxAnimated.gltf";
+
+            String filepath = "sloth/sloth.gltf";
+
             try
             {
                 model = gvrContext.getAssetLoader().loadModel(filepath, settings, false, scene);
             }
             catch (IOException ex) {
             }
-            model.getTransform().setPosition(0,-1f,-2);
+            model.getTransform().setPosition(0, -8.5f, -6.5f);
+            model.getTransform().setScale(0.05f,0.05f,0.05f);
+
             //root.addChildObject(model);
 
 
