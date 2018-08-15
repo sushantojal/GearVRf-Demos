@@ -68,10 +68,15 @@ public class SampleActivity extends GVRActivity {
 
 
 //            String filepath = "busterDrone/busterDrone.gltf";
-//            String filepath = "AnimatedCube/glTF/AnimatedCube.gltf";
 //            String filepath = "BoxAnimated/glTF/BoxAnimated.gltf";
 
-            String filepath = "sloth/sloth.gltf";
+
+//            String filepath = "sloth/sloth.gltf";
+
+
+//            String filepath = "AnimatedMorphSphere/glTF/AnimatedMorphSphere.gltf";
+
+            String filepath = "Lily/female_idleBody.gltf";
 
             try
             {
@@ -79,8 +84,13 @@ public class SampleActivity extends GVRActivity {
             }
             catch (IOException ex) {
             }
-            model.getTransform().setPosition(0, -8.5f, -6.5f);
-            model.getTransform().setScale(0.05f,0.05f,0.05f);
+
+//            model.getTransform().setPosition(0, -8.5f, -6.5f);
+//            model.getTransform().setScale(0.05f,0.05f,0.05f);
+
+
+            model.getTransform().setPosition(0, -1.5f, -4.5f);
+            model.getTransform().setRotationByAxis(90, 0, 1, 0);
 
             //root.addChildObject(model);
 
