@@ -44,7 +44,7 @@ public class SampleActivity extends GVRActivity {
         @Override
         public void onInit(GVRContext gvrContext) {
             GVRScene scene = gvrContext.getMainScene();
-            //scene.setBackgroundColor(1, 1, 1, 1);
+            scene.setBackgroundColor(1, 1, 1, 1);
 
 //            GVRTexture texture = gvrContext.getAssetLoader().loadTexture(new GVRAndroidResource(gvrContext, R.drawable.gearvr_logo));
 //
@@ -66,17 +66,13 @@ public class SampleActivity extends GVRActivity {
             EnumSet<GVRImportSettings> settings = GVRImportSettings.getRecommendedSettingsWith(EnumSet.of(GVRImportSettings.START_ANIMATIONS));
 
 
+//            String filepath = "exportedgltf/untitled.gltf";
 
 //            String filepath = "busterDrone/busterDrone.gltf";
 //            String filepath = "BoxAnimated/glTF/BoxAnimated.gltf";
-
-
-//            String filepath = "sloth/sloth.gltf";
-
-
-//            String filepath = "AnimatedMorphSphere/glTF/AnimatedMorphSphere.gltf";
-
-            String filepath = "Lily/female_idleBody.gltf";
+//            String filepath = "Monster/glTF/Monster.gltf";
+            String filepath = "CesiumMan/glTF/CesiumMan.gltf";
+//            String filepath = "AnimatedMorphCube/glTF/AnimatedMorphCube.gltf";
 
             try
             {
@@ -85,12 +81,19 @@ public class SampleActivity extends GVRActivity {
             catch (IOException ex) {
             }
 
+
+//            model.getTransform().setPosition(0, -2, -1.5f);
+            //model.getTransform().setScale(0.08f, 0.08f, 0.08f);
+
+
 //            model.getTransform().setPosition(0, -8.5f, -6.5f);
 //            model.getTransform().setScale(0.05f,0.05f,0.05f);
 
 
-            model.getTransform().setPosition(0, -1.5f, -4.5f);
-            model.getTransform().setRotationByAxis(90, 0, 1, 0);
+            model.getTransform().setPosition(0, -0.5f, -0.5f);
+                        model.getTransform().setScale(4,4,4);
+
+            //model.getTransform().setRotationByAxis(90, 0, 1, 0);
 
             //root.addChildObject(model);
 
